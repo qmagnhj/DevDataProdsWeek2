@@ -1,0 +1,35 @@
+---
+title: "SimpleMapApp"
+author: "Magnus Hjelmfeldt"
+date: "21 november 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## The Four Major Universities in Stockholm, Sweden
+```{r, warning=FALSE}
+library(leaflet)
+
+df <- data.frame(lat = c(59.341728, 59.348947, 59.349910, 59.363475),
+                 lng = c(18.056809, 18.023701, 18.070678, 18.059354),
+                 pup = c("<a href='https://www.hhs.se/'>Stockholm School of Economics</a>",
+                         "<a href='http://ki.se/en/startpage'>Karolinska Institutet</a>",
+                         "<a href='https://www.kth.se/en'>KTH Royal Institute of Technology</a>",
+                         "<a href='http://www.su.se/english/'>Stockholm University</a>"),
+                 iscr = c("https://www.hhs.se/apple-touch-icon-57x57.png",
+                          "http://ki.se/apple-touch-icon-57x57.png",
+                          "https://www.kth.se/polopoly_fs/1.77259!/KTH_Logotyp_RGB_2013-2.svg",
+                          "http://www.su.se/polopoly_fs/1.86206!/image/image.png"))
+
+leaflet() %>% addTiles() %>% 
+    addMarkers(lat = df$lat, lng = df$lng,
+               popup = df$pup, icon = makeIcon(iconUrl = df$iscr, 
+                                               iconHeight = 57,
+                                               iconWidth = 57))
+
+
+
+```
